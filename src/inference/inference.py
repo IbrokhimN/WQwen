@@ -6,7 +6,8 @@ import torch
 pipe = GPTQModel.load(
     "Qwen/Qwen2.5-7B-Instruct-GPTQ-Int4",
     backend=BACKEND.GPTQ_TORCH, # Marlin у меня не сработал по какой то причине поэтому оставил торч
-    device = " cuda "
+    device = " cuda " # TODO: im not sure that its working
+                      # recheck it from documentation pls
     )
 
 while True:
@@ -29,11 +30,8 @@ while True:
     result = pipe.generate( inputs,
                            max_new_tokens = 256 )
 
+    # taking only the new tokens from toe output
     new_tokens = result[0][inputs["input_ids"].shape[-1]:]
-    # print(result[0])
 
     print(pipe.tokenizer.decode(new_tokens, skip_special_tokens=True))
 
-    # print(type(inputs), type(result), type(result[0]))
-
-    # print(f"input shape: {inputs["input_ids"]}")
