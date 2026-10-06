@@ -1,0 +1,1 @@
+hf download Qwen/Qwen2.5-7B-Instruct-GPTQ-Int4

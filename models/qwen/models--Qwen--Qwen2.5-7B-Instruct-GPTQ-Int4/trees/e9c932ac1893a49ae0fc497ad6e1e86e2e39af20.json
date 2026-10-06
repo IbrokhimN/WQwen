@@ -1,0 +1,59 @@
+{
+ "format_version": 1,
+ "files": {
+  ".gitattributes": {
+   "size": 1561,
+   "blob_id": "e79ce6a89353fed9e05c6bd0e566fbd82c8d6d5f"
+  },
+  "LICENSE": {
+   "size": 11343,
+   "blob_id": "6634c8cc3133b3848ec74b9f275acaaa1ea618ab"
+  },
+  "README.md": {
+   "size": 6389,
+   "blob_id": "5c1dae0a5d159833a178ed73d41c1a80d1ba2688"
+  },
+  "config.json": {
+   "size": 1262,
+   "blob_id": "a0ceeebc20f447b67782a3c3dfc74f816eeea3f3"
+  },
+  "generation_config.json": {
+   "size": 243,
+   "blob_id": "a5dabf0be7ec1939bfb0203495083cdc08d04b12"
+  },
+  "merges.txt": {
+   "size": 1671853,
+   "blob_id": "31349551d90c7606f325fe0f11bbb8bd5fa0d7c7"
+  },
+  "model-00001-of-00002.safetensors": {
+   "size": 3999234216,
+   "blob_id": "db5a4849915a09cb6671431b3e211154a64f666d",
+   "lfs_sha256": "278698de6ca93314e68edf14f57fe14af9fb4255034f06d4eb8272671b4973d2",
+   "lfs_size": 3999234216,
+   "xet_hash": "f9fdc8fdc7fe4611f42b2681f4b2c7a5032529ab08c7abc7263cec8f0664a926"
+  },
+  "model-00002-of-00002.safetensors": {
+   "size": 1576146928,
+   "blob_id": "f1837290d37a90ad988e370258ebcef813d81a45",
+   "lfs_sha256": "77b6cb5d6c191b97a8afa9a19092db693db41068241cf27c7c67cedb096e9664",
+   "lfs_size": 1576146928,
+   "xet_hash": "aefe6725d024e82e7c2d2017a6497c61f7437e4e878e20e6ac7dca8858a9a4a1"
+  },
+  "model.safetensors.index.json": {
+   "size": 75421,
+   "blob_id": "011bac13e782f90aa6e06a0e6fcc3c40a97dbb1d"
+  },
+  "tokenizer.json": {
+   "size": 7031645,
+   "blob_id": "450c878a19e58fd31cdd5f99d9fea007e0d29771"
+  },
+  "tokenizer_config.json": {
+   "size": 7305,
+   "blob_id": "07bfe0640cb5a0037f9322287fbfc682806cf672"
+  },
+  "vocab.json": {
+   "size": 2776833,
+   "blob_id": "4783fe10ac3adce15ac8f358ef5462739852c569"
+  }
+ }
+}
