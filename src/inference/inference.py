@@ -1,4 +1,4 @@
-# from transformers import pipeline
+from transformers import GenerationConfig
 from gptqmodel import GPTQModel, BACKEND
 import torch
 # для глобализации перемены
@@ -15,6 +15,10 @@ messages = [
     #    "content": user_input
     # }
 ]
+
+generation_config = GenerationConfig(
+    max_new_tokens=256, do_sample=True, temperature = 0.7, top_k=50,top_p=0.8, repetition_penalty = 1.1
+)
 
 def load_model():
     global pipe
@@ -63,9 +67,7 @@ def prompt(user_input):
     inputs = pipe.tokenizer.apply_chat_template( messages,
                                                 add_generation_prompt=True,
                                                 return_tensors = "pt" ).to(pipe.model.device)
-
-    result = pipe.generate( inputs,
-                           max_new_tokens = 256 )
+    result = pipe.generate( inputs, generation_config=generation_config )
 
     # taking only the new tokens from toe output
     new_tokens = result[0][inputs["input_ids"].shape[-1]:]
