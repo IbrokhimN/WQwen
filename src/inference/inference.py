@@ -1,6 +1,7 @@
-from transformers import GenerationConfig
+from transformers import GenerationConfig, TextIteratorStreamer
 from gptqmodel import GPTQModel, BACKEND
 import torch
+from threading import Thread
 # для глобализации перемены
 pipe = None
 
@@ -33,9 +34,6 @@ def load_model():
 
 
 def memorize( who, data ):
-    # TODO: При увеличении чата, условно до 200 сообщений, окно становится овер огромным и модель
-    # будет кушать слишком огромный промпт, это не очень оптимизированно, так что нужно сделать
-    # передачу максимум 10-20 сообщений последних ( в паре user - assistant )
     global messages
     if len(messages) > 10:
         del messages[1]
@@ -64,17 +62,34 @@ def clear_mem():
 def prompt(user_input):
     memorize("user", user_input)
 
+    streamer = TextIteratorStreamer( pipe.tokenizer,
+                                    skip_prompt = True,
+                                    skip_special_tokens = True
+                                    )
+
     inputs = pipe.tokenizer.apply_chat_template( messages,
                                                 add_generation_prompt=True,
                                                 return_tensors = "pt" ).to(pipe.model.device)
-    result = pipe.generate( inputs, generation_config=generation_config )
 
-    # taking only the new tokens from toe output
-    new_tokens = result[0][inputs["input_ids"].shape[-1]:]
+    thread = Thread(
+            target = pipe.generate,
+            kwargs={
+                "inputs": inputs,
+                "generation_config": generation_config,
+                "streamer": streamer
+                }
+            )
+    # result = pipe.generate( inputs, generation_config=generation_config )
+    thread.start()
 
-    model_output = pipe.tokenizer.decode(new_tokens, skip_special_tokens=True)
+    model_output = ""
+    for text in streamer:
+        print(text, end="", flush=True)
+        model_output += text
+
+    thread.join()
 
     memorize("model", model_output)
-    print(messages)
+    # print(messages)
     return model_output
 
