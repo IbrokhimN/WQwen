@@ -43,6 +43,17 @@ def memorize( who, data ):
     else:
         print(f"я не знаю никакого {who}, бака >-<")
 
+
+def clear_mem():
+    global messages
+    messages = [
+    {
+        "role": "system",
+        "content": "You are a helpful assistant."
+    }
+]
+
+
 def prompt(user_input):
     memorize("user", user_input)
 
