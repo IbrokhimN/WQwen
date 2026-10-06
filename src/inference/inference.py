@@ -33,6 +33,9 @@ def memorize( who, data ):
     # будет кушать слишком огромный промпт, это не очень оптимизированно, так что нужно сделать
     # передачу максимум 10-20 сообщений последних ( в паре user - assistant )
     global messages
+    if len(messages) > 10:
+        del messages[1]
+        del messages[1]
 
     if who == "user":
         messages.append({ "role": "user", "content": data })
