@@ -11,7 +11,7 @@ def load_model():
     pipe = GPTQModel.load(
         "Qwen/Qwen2.5-7B-Instruct-GPTQ-Int4",
         backend=BACKEND.GPTQ_TORCH, # Marlin у меня не сработал по какой то причине поэтому оставил торч
-        device = " cuda " # TODO: im not sure that its working
+        device_map = "auto" # TODO: im not sure that its working
                           # recheck it from documentation pls
         )
 
@@ -33,5 +33,5 @@ def prompt(user_input):
     # taking only the new tokens from toe output
     new_tokens = result[0][inputs["input_ids"].shape[-1]:]
 
-    print(pipe.tokenizer.decode(new_tokens, skip_special_tokens=True))
+    return pipe.tokenizer.decode(new_tokens, skip_special_tokens=True)
 
