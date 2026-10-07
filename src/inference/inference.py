@@ -2,23 +2,24 @@ from transformers import GenerationConfig, TextIteratorStreamer
 from gptqmodel import GPTQModel, BACKEND
 import torch
 from threading import Thread
+import logging
+
+from ..core.messages import messages
+
+logging.basicConfig(level=logging.ERROR)
+logging.getLogger("gptqmodel").setLevel(logging.ERROR)
+
 # для глобализации перемены
 pipe = None
 
-# LLM role
-messages = [
-    {
-        "role": "system",
-        "content": "You are a helpful assistant."
-    }
-    # {
-    #    "role": "user",
-    #    "content": user_input
-    # }
-]
-
 generation_config = GenerationConfig(
-    max_new_tokens=256, do_sample=True, temperature = 0.7, top_k=50,top_p=0.8, repetition_penalty = 1.1
+    max_new_tokens=256,
+    do_sample=True,
+    temperature = 0.7,
+    top_k=50,
+    top_p=0.8,
+    repetition_penalty = 1.1,
+    pad_token_id = 151643
 )
 
 def load_model():
@@ -31,7 +32,7 @@ def load_model():
         device_map = "auto" # TODO: im not sure that its working
                           # recheck it from documentation pls
         )
-
+    pipe.generation_config = generation_config
 
 def memorize( who, data ):
     global messages
@@ -75,7 +76,7 @@ def prompt(user_input):
             target = pipe.generate,
             kwargs={
                 "inputs": inputs,
-                "generation_config": generation_config,
+                "max_new_tokens": 256, # КАК ЭТО СРАБОТАЛО? ПОЧЕМУ НАДО БЫЛО ЯВНО ЕГО УКАЗАТЬ ЧТО БЫ ЛОГ ПРОПАЛ
                 "streamer": streamer
                 }
             )
