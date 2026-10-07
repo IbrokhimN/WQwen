@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 Запустите инференс.
 ``` bash
-python3 src/inference/cli.py
+python3 -m src.inference.cli
 ```
 ---
 

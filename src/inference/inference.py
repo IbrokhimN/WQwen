@@ -4,7 +4,7 @@ import torch
 from threading import Thread
 import logging
 
-from ..core.messages import messages
+from ..core.messages import messages, memorize, clear_mem
 
 logging.basicConfig(level=logging.ERROR)
 logging.getLogger("gptqmodel").setLevel(logging.ERROR)
@@ -33,32 +33,6 @@ def load_model():
                           # recheck it from documentation pls
         )
     pipe.generation_config = generation_config
-
-def memorize( who, data ):
-    global messages
-    if len(messages) > 10:
-        del messages[1]
-        del messages[1]
-
-    if who == "user":
-        messages.append({ "role": "user", "content": data })
-
-    elif who == "model":
-        messages.append({ "role": "assistant", "content": data })
-
-    else:
-        print(f"я не знаю никакого {who}, бака >-<")
-
-
-def clear_mem():
-    global messages
-    messages = [
-    {
-        "role": "system",
-        "content": "You are a helpful assistant."
-    }
-]
-
 
 def prompt(user_input):
     memorize("user", user_input)
