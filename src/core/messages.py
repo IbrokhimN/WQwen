@@ -18,6 +18,9 @@ def memorize( who, data ):
     elif who == "model":
         messages.append({ "role": "assistant", "content": data })
 
+    elif whp == "user_facts":
+        messages.append({ "role": "user_facts", "content": data })
+
     else:
         print(f"я не знаю никакого {who}, бака >-<")
 
