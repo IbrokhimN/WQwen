@@ -108,7 +108,7 @@ User question:
 
     model_output = ""
     for text in streamer:
-        print(text, end="", flush=True)
+        # print(text, end="", flush=True)
         model_output += text
 
     thread.join()
@@ -127,8 +127,8 @@ User question:
         for fact in facts
     )
 
-    print("FACTS:", facts)
-    print("MEMORY TEXT:", memory_text)
+    # print("FACTS:", facts)
+    # print("MEMORY TEXT:", memory_text)
 
     temp_messages = messages.copy()
 
